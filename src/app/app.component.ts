@@ -15,6 +15,7 @@ export class AppComponent {
   deletedRowId: string;
   data: any[];
   addedRowId: any[] = [];
+  isFormDirty: boolean = false;
 
   constructor(
     private _appService: AppService,
@@ -74,6 +75,7 @@ export class AppComponent {
     if(e.currentTarget.getAttribute("class").indexOf("column-2") >= 0) {
       this.data.find(x => x.id == rowId).colId2 = e.currentTarget.value;
     }
+    this.isFormDirty = true;
     console.log(this.data);
   }
 
@@ -103,8 +105,17 @@ export class AppComponent {
         Swal.fire('Success!', 'Your data has been saved successfully!', 'success');
       });
     }
+    this.isFormDirty = false;
   }
- 
+  
+  cancelAll() {
+    this._el.nativeElement.querySelectorAll('.ui-table-tbody input.ui-inputtext').forEach(element=> {
+      if(this.isFormDirty){
+        Swal.fire('Warning!', 'Your have unsaved data, you can save it before leaving!', 'warning');
+      }
+    })
+  }
+
   clearAll() {
     this._el.nativeElement.querySelectorAll('.ui-table-tbody input.ui-inputtext').forEach(element=> {
       element.value='';
