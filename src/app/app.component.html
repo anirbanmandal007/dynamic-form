@@ -1,0 +1,33 @@
+<div class="add-row">
+  <button pButton type="button" label="Add Row" class="text-right" (click)="addRow()"></button>
+</div>
+
+<p-table [value]="data">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Col 1</th>
+          <th>Col 2</th>
+          <th>Action</th>          
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+      <tr [attr.rowId]="data.rowId">
+          <td class="text-center">Input 1 <br />
+            <input class="column-1" type="text" pInputText value="{{data.colId1}}" (keyup)="updateData($event)" />
+          </td>
+          <td class="text-center">Input 2 <br />
+            <input class="column-2" type="text" pInputText value="{{data.colId2}}" (keyup)="updateData($event)" />
+          </td>
+          <td class="text-center">
+            <button pButton type="button" label="Delete Row"(click)="deleteRow($event)" ></button>
+            <button pButton type="button" label="Save" class="text-right" (click)="saveData($event)"></button>
+          </td>     
+      </tr>
+  </ng-template>
+</p-table> 
+
+<div class="save-delete">
+  <button pButton type="button" label="Clear" class="text-right" (click)="clearAll()"></button>
+</div>
+
+<router-outlet></router-outlet>
